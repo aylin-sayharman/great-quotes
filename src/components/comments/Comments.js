@@ -23,6 +23,7 @@ const Comments = () => {
   const startAddCommentHandler = () => {
     setIsAddingComment(true);
   };
+  
   const addedCommentHandler = useCallback(() => {
     sendRequest(quoteId);
   }, [sendRequest, quoteId]);
@@ -31,18 +32,18 @@ const Comments = () => {
 
   if (status === 'pending') {
     comments = (
-      <div className="centered">
+      <div className='centered'>
         <LoadingSpinner />
       </div>
     );
   }
 
-  if (status === 'completed' ) {
+  if (status === 'completed' && loadedComments && loadedComments.length > 0) {
     comments = <CommentsList comments={loadedComments}/>;
   }
 
-  if (status === 'completed' && (loadedComments && loadedComments.length === 0)) {
-    comments = <p className="centered">No comments were added yet!</p>
+  if (status === 'completed' && (!loadedComments || loadedComments.length === 0)) {
+    comments = <p className='centered'>No comments were added yet!</p>
   }
 
   return (

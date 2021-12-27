@@ -1,7 +1,9 @@
-import { useParams, Route, Link, useRouteMatch } from 'react-router-dom';
 import { Fragment, useEffect } from 'react';
+import { useParams, Route, Link, useRouteMatch } from 'react-router-dom';
+
 import Comments from '../components/comments/Comments.js';
 import HighlightedQuote from '../components/quotes//HighlightedQuote';
+
 import useHttp from '../hooks/use-http';
 import { getSingleQuote } from '../lib/api';
 import LoadingSpinner from '../components/UI/LoadingSpinner.js';
@@ -23,13 +25,14 @@ const QuoteDetail = () => {
 
   if (status === 'pending') {
     return (
-      <div className="centered">
+      <div className='centered'>
         <LoadingSpinner />
       </div>
     );
   }
+
   if (error) {
-    return <p className="centered">{error}</p>
+    return <p className='centered'>{error}</p>
   }
 
   if (!loadedQuote.text) {
@@ -38,7 +41,7 @@ const QuoteDetail = () => {
 
   return (
     <Fragment>
-      <HighlightedQuote text={loadedQuote.text} author={loadedQuote.author}></HighlightedQuote>
+      <HighlightedQuote text={loadedQuote.text} author={loadedQuote.author} />
       <Route path={match.path} exact>
         <div className="centered">
           <Link className='btn--flat' to={`${match.url}/comments`}>
@@ -47,7 +50,7 @@ const QuoteDetail = () => {
         </div>
       </Route>
       <Route path={`${match.path}/comments`}>
-        <Comments></Comments>
+        <Comments />
       </Route>
     </Fragment>
   );

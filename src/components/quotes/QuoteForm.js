@@ -7,6 +7,7 @@ import classes from './QuoteForm.module.css';
 
 const QuoteForm = (props) => {
   const [isEntering, setIsEntering] = useState(false);
+
   const authorInputRef = useRef();
   const textInputRef = useRef();
 
@@ -21,19 +22,28 @@ const QuoteForm = (props) => {
     props.onAddQuote({ author: enteredAuthor, text: enteredText });
   }
 
-  const formFocusedHandler = () => {
-    setIsEntering(true);
-  };
-
   const finishEnteringHandler = () => {
     setIsEntering(false);
   };
 
+  const formFocusedHandler = () => {
+    setIsEntering(true);
+  };
+
   return (
     <Fragment>
-      <Prompt when={isEntering} message={(location) => 'Are you sure you want to leave? All your entered data will be lost.'}/>
+      <Prompt
+        when={isEntering}
+        message={(location) =>
+          'Are you sure you want to leave? All your entered data will be lost.'
+        }
+      />
       <Card>
-        <form onFocus={formFocusedHandler} className={classes.form} onSubmit={submitFormHandler}>
+        <form
+          onFocus={formFocusedHandler}
+          className={classes.form}
+          onSubmit={submitFormHandler}
+        >
           {props.isLoading && (
             <div className={classes.loading}>
               <LoadingSpinner />
@@ -52,8 +62,8 @@ const QuoteForm = (props) => {
             <button onClick={finishEnteringHandler} className='btn'>Add Quote</button>
           </div>
         </form>
-        </Card>
-      </Fragment>
+      </Card>
+    </Fragment>
   );
 };
 
